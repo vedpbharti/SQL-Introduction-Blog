@@ -1,60 +1,148 @@
-# Windows Functions in SQL
+<!DOCTYPE html>
+<html>
 
-Welcome to my blog on Windows functions in SQL! In this series of articles, we will explore the concept of Windows functions and how they can be used to perform calculations on subsets of rows within a result set.
+<head>
+    <title>Introduction to SQL Windows Functions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
 
-## Table of Contents
+        h1 {
+            color: #333;
+        }
 
-1. [Introduction to Windows Functions](#introduction-to-windows-functions)
-2. [Syntax and Usage](#syntax-and-usage)
-3. [Commonly Used Windows Functions](#commonly-used-windows-functions)
-    - [ROW_NUMBER()](#row_number)
-    - [RANK()](#rank)
-    - [DENSE_RANK()](#dense_rank)
-    - [LEAD()](#lead)
-    - [LAG()](#lag)
-4. [Examples](#examples)
-    - [Calculating Running Total](#calculating-running-total)
-    - [Finding Top N Records](#finding-top-n-records)
-    - [Comparing Current and Previous Rows](#comparing-current-and-previous-rows)
+        p {
+            color: #555;
+        }
 
-## Introduction to Windows Functions
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
 
-A Windows function, also known as an analytic function, operates on a specific subset of rows called a window or a frame. It allows us to perform calculations across this window, providing insights into the data distribution and relationships within a result set.
+        .code {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
 
-## Syntax and Usage
+        .code pre {
+            margin: 0;
+        }
 
-Windows functions are typically used in conjunction with the `OVER` clause, which defines the window or frame over which the function operates. The `OVER` clause specifies the partitioning and ordering of the rows within the window.
+        .code sql {
+            color: #000;
+        }
+    </style>
+</head>
 
-## Commonly Used Windows Functions
+<body>
+    <div class="content">
+        <h1>Introduction to SQL Windows Functions</h1>
+        <p>Welcome to my blog on Windows functions in SQL! In this series of articles, we will explore the concept of Windows
+            functions and how they can be used to perform calculations on subsets of rows within a result set.</p>
 
-### ROW_NUMBER()
+        <h2>Table of Contents</h2>
+        <ol>
+            <li><a href="#introduction-to-windows-functions">Introduction to Windows Functions</a></li>
+            <li><a href="#syntax-and-usage">Syntax and Usage</a></li>
+            <li><a href="#commonly-used-windows-functions">Commonly Used Windows Functions</a>
+                <ol>
+                    <li><a href="#row_number">ROW_NUMBER()</a></li>
+                    <li><a href="#rank">RANK()</a></li>
+                    <li><a href="#dense_rank">DENSE_RANK()</a></li>
+                    <li><a href="#lead">LEAD()</a></li>
+                    <li><a href="#lag">LAG()</a></li>
+                </ol>
+            </li>
+            <li><a href="#examples">Examples</a>
+                <ol>
+                    <li><a href="#calculating-running-total">Calculating Running Total</a></li>
+                    <li><a href="#finding-top-n-records">Finding Top N Records</a></li>
+                    <li><a href="#comparing-current-and-previous-rows">Comparing Current and Previous Rows</a></li>
+                </ol>
+            </li>
+        </ol>
 
-The `ROW_NUMBER()` function assigns a unique sequential number to each row within a partition, without any gaps or duplicates.
+        <h2 id="introduction-to-windows-functions">Introduction to Windows Functions</h2>
+        <p>A Windows function, also known as an analytic function, operates on a specific subset of rows called a window or a
+            frame. It allows us to perform calculations across this window, providing insights into the data distribution and
+            relationships within a result set.</p>
 
-### RANK()
+        <h2 id="syntax-and-usage">Syntax and Usage</h2>
+        <p>Windows functions are typically used in conjunction with the <code>OVER</code> clause, which defines the window or
+            frame over which the function operates. The <code>OVER</code> clause specifies the partitioning and ordering of
+            the rows within the window.</p>
 
-The `RANK()` function assigns a unique rank to each row within a partition, with the same ranks for rows with equal values. It leaves gaps in the ranking sequence when there are ties.
+        <h2 id="commonly-used-windows-functions">Commonly Used Windows Functions</h2>
+        <h3 id="row_number">ROW_NUMBER()</h3>
+        <p>The <code>ROW_NUMBER()</code> function assigns a unique sequential number to each row within a partition, without
+            any gaps or duplicates.</p>
 
-### DENSE_RANK()
+        <h3 id="rank">RANK()</h3>
+        <p>The <code>RANK()</code> function assigns a unique rank to each row within a partition, with the same ranks for rows
+            with equal values. It leaves gaps in the ranking sequence when there are ties.</p>
 
-The `DENSE_RANK()` function assigns a unique rank to each row within a partition, with the same ranks for rows with equal values. Unlike `RANK()`, it does not leave gaps in the ranking sequence.
+        <h3 id="dense_rank">DENSE_RANK()</h3>
+        <p>The <code>DENSE_RANK()</code> function assigns a unique rank to each row within a partition, with the same ranks
+            for rows with equal values. Unlike <code>RANK()</code>, it does not leave gaps in the ranking sequence.</p>
 
-### LEAD()
+        <h3 id="lead">LEAD()</h3>
+        <p>The <code>LEAD()</code> function allows you to access the value of a column from the next row within the window,
+            based on a specified offset.</p>
 
-The `LEAD()` function allows you to access the value of a column from the next row within the window, based on a specified offset.
+        <h3 id="lag">LAG()</h3>
+        <p>The <code>LAG()</code> function allows you to access the value of a column from the previous row within the window,
+            based on a specified offset.</p>
 
-### LAG()
+        <h2 id="examples">Examples</h2>
+        <h3 id="calculating-running-total">Calculating Running Total</h3>
+        <p>Suppose we have a sales table with columns <code>OrderDate</code> and <code>Revenue</code>. We can use the
+            <code>SUM()</code> function with the <code>OVER</code> clause to calculate the running total of revenue over
+            time.</p>
 
-The `LAG()` function allows you to access the value of a column from the previous row within the window, based on a specified offset.
+        <div class="code">
+            <pre><code class="sql">SELECT OrderDate, Revenue, SUM(Revenue) OVER (ORDER BY OrderDate) AS RunningTotal
+FROM SalesTable;</code></pre>
+        </div>
 
-## Examples
+        <h3 id="finding-top-n-records">Finding Top N Records</h3>
+        <p>To find the top N records based on a specific criteria, such as the highest sales revenue, we can utilize the
+            <code>RANK()</code> function in combination with a subquery.</p>
 
-Let's dive into some practical examples to understand the application of Windows functions.
+        <div class="code">
+            <pre><code class="sql">SELECT ProductName, Revenue
+FROM (
+    SELECT ProductName, Revenue, RANK() OVER (ORDER BY Revenue DESC) AS Ranking
+    FROM SalesTable
+) AS Subquery
+WHERE Ranking <= N;</code></pre>
+        </div>
 
-### Calculating Running Total
+        <h3 id="comparing-current-and-previous-rows">Comparing Current and Previous Rows</h3>
+        <p>We may need to compare the current row with the previous row to identify trends or calculate the difference
+            between values. The <code>LAG()</code> function comes in handy for this scenario.</p>
 
-Suppose we have a sales table with columns `OrderDate` and `Revenue`. We can use the `SUM()` function with the `OVER` clause to calculate the running total of revenue over time.
+        <div class="code">
+            <pre><code class="sql">SELECT OrderDate, Revenue, LAG(Revenue) OVER (ORDER BY OrderDate) AS PreviousRevenue
+FROM SalesTable;</code></pre>
+        </div>
 
-```sql
-SELECT OrderDate, Revenue, SUM(Revenue) OVER (ORDER BY OrderDate) AS RunningTotal
-FROM SalesTable;
+        <p>These examples illustrate just a few possibilities with Windows functions. They provide powerful analytical
+            capabilities to gain insights from your data.</p>
+
+        <p>Stay tuned for more articles where we will explore additional Windows functions and their applications.</p>
+
+        <p>Happy coding!</p>
+    </div>
+</body>
+
+</html>
