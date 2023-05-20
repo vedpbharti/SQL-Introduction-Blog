@@ -1,59 +1,60 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Introduction to SQL</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
-</head>
-<body>
-  <header>
-    <h1>Introduction to SQL</h1>
-  </header>
-  
-  <main>
-    <section>
-      <h2>What is SQL?</h2>
-      <p>SQL (Structured Query Language) is a programming language designed for managing and manipulating relational databases. It allows you to perform various operations, such as creating, retrieving, updating, and deleting data from a database.</p>
-    </section>
-    
-    <section>
-      <h2>Basic SQL Queries</h2>
-      <p>SQL queries are used to interact with the database. Here are some basic SQL queries:</p>
-      
-      <ul>
-        <li>SELECT: Retrieves data from a database.</li>
-        <li>INSERT: Inserts new data into a database.</li>
-        <li>UPDATE: Modifies existing data in a database.</li>
-        <li>DELETE: Removes data from a database.</li>
-      </ul>
-    </section>
-    
-    <section>
-      <h2>SQL Syntax</h2>
-      <p>SQL follows a specific syntax for writing queries. Here's an example:</p>
-      
-      <pre><code>
-        SELECT column1, column2
-        FROM table_name
-        WHERE condition;
-      </code></pre>
-    </section>
-    
-    <section>
-      <h2>Commonly Used SQL Commands</h2>
-      <p>SQL offers a wide range of commands for database management. Some commonly used commands include:</p>
-      
-      <ul>
-        <li>CREATE TABLE: Creates a new table in a database.</li>
-        <li>ALTER TABLE: Modifies an existing table structure.</li>
-        <li>DROP TABLE: Deletes a table from the database.</li>
-        <li>SELECT DISTINCT: Retrieves unique values from a column.</li>
-        <li>ORDER BY: Sorts the results in ascending or descending order.</li>
-      </ul>
-    </section>
-  </main>
-  
-  <footer>
-    <p>For more detailed information and examples, refer to the SQL documentation.</p>
-  </footer>
-</body>
-</html>
+# Windows Functions in SQL
+
+Welcome to my blog on Windows functions in SQL! In this series of articles, we will explore the concept of Windows functions and how they can be used to perform calculations on subsets of rows within a result set.
+
+## Table of Contents
+
+1. [Introduction to Windows Functions](#introduction-to-windows-functions)
+2. [Syntax and Usage](#syntax-and-usage)
+3. [Commonly Used Windows Functions](#commonly-used-windows-functions)
+    - [ROW_NUMBER()](#row_number)
+    - [RANK()](#rank)
+    - [DENSE_RANK()](#dense_rank)
+    - [LEAD()](#lead)
+    - [LAG()](#lag)
+4. [Examples](#examples)
+    - [Calculating Running Total](#calculating-running-total)
+    - [Finding Top N Records](#finding-top-n-records)
+    - [Comparing Current and Previous Rows](#comparing-current-and-previous-rows)
+
+## Introduction to Windows Functions
+
+A Windows function, also known as an analytic function, operates on a specific subset of rows called a window or a frame. It allows us to perform calculations across this window, providing insights into the data distribution and relationships within a result set.
+
+## Syntax and Usage
+
+Windows functions are typically used in conjunction with the `OVER` clause, which defines the window or frame over which the function operates. The `OVER` clause specifies the partitioning and ordering of the rows within the window.
+
+## Commonly Used Windows Functions
+
+### ROW_NUMBER()
+
+The `ROW_NUMBER()` function assigns a unique sequential number to each row within a partition, without any gaps or duplicates.
+
+### RANK()
+
+The `RANK()` function assigns a unique rank to each row within a partition, with the same ranks for rows with equal values. It leaves gaps in the ranking sequence when there are ties.
+
+### DENSE_RANK()
+
+The `DENSE_RANK()` function assigns a unique rank to each row within a partition, with the same ranks for rows with equal values. Unlike `RANK()`, it does not leave gaps in the ranking sequence.
+
+### LEAD()
+
+The `LEAD()` function allows you to access the value of a column from the next row within the window, based on a specified offset.
+
+### LAG()
+
+The `LAG()` function allows you to access the value of a column from the previous row within the window, based on a specified offset.
+
+## Examples
+
+Let's dive into some practical examples to understand the application of Windows functions.
+
+### Calculating Running Total
+
+Suppose we have a sales table with columns `OrderDate` and `Revenue`. We can use the `SUM()` function with the `OVER` clause to calculate the running total of revenue over time.
+
+```sql
+SELECT OrderDate, Revenue, SUM(Revenue) OVER (ORDER BY OrderDate) AS RunningTotal
+FROM SalesTable;
