@@ -43,3 +43,6 @@ footer {
   text-align: center;
 }
 
+footer p {
+  margin: 0;
+}
